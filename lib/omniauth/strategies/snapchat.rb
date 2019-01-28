@@ -13,14 +13,12 @@ module OmniAuth
           :token_url => 'https://accounts.snapchat.com/accounts/oauth2/token'
       }
 
-      uid{ raw_info['me']['id'] }
+      uid{ raw_info['me']['externalId'] }
 
       info do
         {
-          email: raw_info['me']['email'],
-          organization_id: raw_info['me']['organization_id'],
-          display_name: raw_info['me']['display_name'],
-          member_status: raw_info['me']['member_status']
+          name: raw_info['me']['displayName'],
+          image: raw_info['me']['bitmoji']['avatar']
         }
       end
 
@@ -31,8 +29,10 @@ module OmniAuth
       end
 
       def raw_info
-        raw_info_url = "https://adsapi.snapchat.com/v1/me"
-        @raw_info ||= access_token.get(raw_info_url).parsed
+        # After back and forth with snapchat support team, using the GraphQL
+        # endpoint seems the easiest.
+        raw_info_url = "https://kit.snapchat.com/v1/me?query=%7Bme%7BexternalId%2C+displayName%2C+bitmoji%7Bavatar%7D%7D%7D"
+        @raw_info ||= access_token.get(raw_info_url).parsed["data"]
       end
 
       def callback_url

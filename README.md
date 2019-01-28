@@ -1,8 +1,10 @@
 # Omniauth::Snapchat
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/omniauth/snapchat`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem expects you to request the following scopes:
 
-TODO: Delete this and the text above, and describe your gem
+https://auth.snapchat.com/oauth2/api/user.display_name
+https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar
+https://auth.snapchat.com/oauth2/api/user.external_id
 
 ## Installation
 
